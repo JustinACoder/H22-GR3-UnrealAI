@@ -1,0 +1,8 @@
+{
+	"BuildId": "8386587",
+	"Modules": 
+	{
+		"TensorFlow": "UE4Editor-TensorFlow.dll",
+		"TFAudioCapture": "UE4Editor-TFAudioCapture.dll"
+	}
+}
