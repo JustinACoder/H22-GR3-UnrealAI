@@ -20,7 +20,7 @@ dans le fichier UnrealAI.exe.
 
 # Fonctionalités
 
-Le projet est basé sur le plugin tensorflow-ue4 <a href="https://github.com/getnamo/tensorflow-ue4">Plugin</a>
+Le projet est basé sur le plugin <a href="https://github.com/getnamo/tensorflow-ue4">tensorflow-ue4</a>
 
 <h3>Datasets utilisés</h3>
 <a href="https://github.com/googlecreativelab/quickdraw-dataset">Quick draw dataset</a><br>
