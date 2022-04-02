@@ -1,0 +1,1 @@
+Ces modèles donneront des résultats précis si on pre-process les images avant de les donner au AI. Pour savoir quelle manipulations faire, voir le code des exemples.
