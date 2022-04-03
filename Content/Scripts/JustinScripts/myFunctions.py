@@ -72,12 +72,12 @@ def normalize_img(image, label):
     return tf.cast(image, tf.float32) / 255., label
 
 
-def prepareSet(ds: tf.data.Dataset, auto_crop=False):
+def prepareSet(ds: tf.data.Dataset, auto_crop=False, count=None):
     ds = ds.map(normalize_img, num_parallel_calls=tf.data.AUTOTUNE)
     if auto_crop:
         ds = ds.map(auto_crop_image, num_parallel_calls=tf.data.AUTOTUNE)
     ds = ds.cache()
-    count = ds.reduce(0, lambda x, _: x + 1).numpy()
+    count = count or ds.reduce(0, lambda x, _: x + 1).numpy()
     ds = ds.shuffle(count)
     ds = ds.batch(128)
     ds = ds.prefetch(tf.data.AUTOTUNE)
@@ -86,10 +86,21 @@ def prepareSet(ds: tf.data.Dataset, auto_crop=False):
     return ds
 
 
+def prepareSetQuickDraw(ds: tf.data.Dataset, auto_crop=False):
+    ds = ds.map(normalize_img, num_parallel_calls=tf.data.AUTOTUNE)
+    if auto_crop:
+        ds = ds.map(auto_crop_image, num_parallel_calls=tf.data.AUTOTUNE)
+    #ds = ds.cache()
+    ds = ds.batch(256)
+    ds = ds.prefetch(tf.data.AUTOTUNE)
+    return ds
+
+
 def removeClasses(ds: tf.data.Dataset, classes):
     """
     This function removes all specified classes from the dataset.
     """
+
     def filter_fn(image, label):
         return tf.math.reduce_all(tf.math.not_equal(label, classes))
 
