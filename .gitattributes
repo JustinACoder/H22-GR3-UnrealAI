@@ -1,0 +1,2 @@
+Binaries/Win64/UnrealAI.exe filter=lfs diff=lfs merge=lfs -text
+Binaries/Win64/UnrealAI.pdb filter=lfs diff=lfs merge=lfs -text

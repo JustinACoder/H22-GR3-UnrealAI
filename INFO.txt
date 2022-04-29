@@ -1,0 +1,9 @@
+Info sur la structure du projet:
+
+- L'Actor qui communique avec le serveur est defini dans source/unrealai/myaiactor.h
+- Il est ensuite override dans content/unrealai_bp/bp_aiactor
+
+- Le serveur se trouve dans plugins\machine-learning-remote-ue4\server/ml-remote-server
+- La version embedded de python est dans le folder python3.7
+- Pour launch le serveur, utiliser python 3.7, run le installrequirements.bat et run le launchserver.bat
+- Le jeu peut maintenant etre jouer
