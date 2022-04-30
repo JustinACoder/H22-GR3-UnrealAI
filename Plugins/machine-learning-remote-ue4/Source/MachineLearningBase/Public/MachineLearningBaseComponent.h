@@ -39,6 +39,7 @@ struct FMLSendRawObject
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMLLogSignature, FString, Text);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMLConnectionSignature, FString, Endpoint);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FMLResultSignature, FString, ResultData, FString, CallingFunctionName);
+// Changed to TArray to a constant reference to fix a bug with delegates
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FMLRawResultSignature, const TArray<float>&, ResultData, FString, CallingFunctionName);
 
 /**

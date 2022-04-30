@@ -34,11 +34,10 @@ public:
 	UFUNCTION(BlueprintPure, meta = (DisplayName = "ToTexture2D (Float Array)", BlueprintAutocast), Category = "Utilities|TensorFlow")
 	static UTexture2D* Conv_FloatArrayToTexture2D(const TArray<float>& InFloatArray, const FVector2D Size = FVector2D(0, 0));
 
-
 	/** Convert render to target texture2d to a UTexture2D */
 	UFUNCTION(BlueprintPure, meta = (DisplayName = "ToTexture2D (Render Target 2D)", BlueprintAutocast), Category = "Utilities|TensorFlow")
 	static UTexture2D* Conv_RenderTargetTextureToTexture2D(UTextureRenderTarget2D* InTexture);
-
+ 
 	/** Convert a byte array into a float array, normalized by the passed in scale */
 	UFUNCTION(BlueprintPure, meta = (DisplayName = "ToFloatArray (bytes)", BlueprintAutocast), Category = "Utilities|TensorFlow")
 	static TArray<float> Conv_ByteToFloatArray(const TArray<uint8>& InByteArray, float Scale = 1.f);
