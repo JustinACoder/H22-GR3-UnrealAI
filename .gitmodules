@@ -1,0 +1,3 @@
+[submodule "Plugins/machine-learning-remote-ue4/Server/ml-remote-server"] 
+  path = Plugins/machine-learning-remote-ue4/Server/ml-remote-server 
+  url = https://github.com/getnamo/ml-remote-server
