@@ -18,7 +18,9 @@ TArray<float> UTensorFlowBlueprintLibrary::Conv_GreyScaleTexture2DToFloatArray(U
 	{
 		int MipPointer = i * 4;
 		float GreyscaleValue = (MipData[MipPointer] + MipData[MipPointer + 1] + MipData[MipPointer + 2]) / 3.f;
-		FloatArray[i] = GreyscaleValue / 255.f;	 //normalize it
+		
+		// Puts drawing as perfect white
+		FloatArray[i] = GreyscaleValue > 0 ? 1 : 0;	 //flat drawing
 	}
 
 	// Unlock the texture

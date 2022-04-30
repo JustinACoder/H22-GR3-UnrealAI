@@ -14,11 +14,11 @@ struct FMLSendStringObject
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY()
-	FString InputData;
+		UPROPERTY()
+		FString InputData;
 
 	UPROPERTY()
-	FString TargetFunction;
+		FString TargetFunction;
 };
 
 
@@ -28,20 +28,20 @@ struct FMLSendRawObject
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY()
-	TArray<float> InputData;
+		UPROPERTY()
+		TArray<float> InputData;
 
 	UPROPERTY()
-	FString TargetFunction;
+		FString TargetFunction;
 };
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMLLogSignature, FString, Text);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMLConnectionSignature, FString, Endpoint);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FMLResultSignature, FString, ResultData, FString, CallingFunctionName);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FMLRawResultSignature, TArray<float>, ResultData, FString, CallingFunctionName);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FMLRawResultSignature, const TArray<float>&, ResultData, FString, CallingFunctionName);
 
-/** 
+/**
 *	Base component for both remote and standard MachineLearning components.
 *	Considered abstract, ensures all MachineLearning components have same base API
 */
@@ -50,49 +50,49 @@ class MACHINELEARNINGBASE_API UMachineLearningBaseComponent : public UActorCompo
 {
 	GENERATED_BODY()
 
-public:	
+public:
 
 	UMachineLearningBaseComponent();
 
-	/** 
+	/**
 	* When the given setup gets a connection to a backend (e.g. server for remote, library for native).
 	* This is a good place to do initialization type calls instead of BeginPlay.
 	*/
 	UPROPERTY(BlueprintAssignable, Category = MachineLearningEvents)
-	FMLConnectionSignature OnConnectedToBackend;
+		FMLConnectionSignature OnConnectedToBackend;
 
 	UPROPERTY(BlueprintAssignable, Category = MachineLearningEvents)
-	FMLConnectionSignature OnDisconnectedFromBackend;
+		FMLConnectionSignature OnDisconnectedFromBackend;
 
 	UPROPERTY(BlueprintAssignable, Category = MachineLearningEvents)
-	FMLLogSignature OnLog;
+		FMLLogSignature OnLog;
 
 	/** SendInput variant will return data to this event. */
 	UPROPERTY(BlueprintAssignable, Category = MachineLearningEvents)
-	FMLResultSignature OnInputResult;
+		FMLResultSignature OnInputResult;
 
 	UPROPERTY(BlueprintAssignable, Category = MachineLearningEvents)
-	FMLRawResultSignature OnRawInputResult;
+		FMLRawResultSignature OnRawInputResult;
 
 	/** What this means is different for each sub-type */
 	UPROPERTY(BlueprintReadOnly, Category = MachineLearningProperties)
-	bool bIsConnectedToBackend;
+		bool bIsConnectedToBackend;
 
 	/** Send input to ML side result comes back to the OnResult event. Optionally re-target to another function name. */
 	UFUNCTION(BlueprintCallable, Category = MachineLearningFunctions)
-	virtual void SendStringInput(const FString& InputData, const FString& FunctionName = TEXT("onJsonInput"));
+		virtual void SendStringInput(const FString& InputData, const FString& FunctionName = TEXT("onJsonInput"));
 
 	/** Send float array input, bypasses encoding. Useful for large data/native inference, may not work in remote context. Result comes back to the OnRawResult event*/
 	UFUNCTION(BlueprintCallable, Category = MachineLearningFunctions)
-	virtual void SendRawInput(const TArray<float>& InputData, const FString& FunctionName = TEXT("onFloatArrayInput"));
+		virtual void SendRawInput(const TArray<float>& InputData, const FString& FunctionName = TEXT("onFloatArrayInput"));
 
 	/** BP Only. Send input to ML side result will come back as a latent action in the graph. Recommended method. Optionally re-target to another function name. */
 	UFUNCTION(BlueprintCallable, meta = (Latent, LatentInfo = "LatentInfo"), Category = MachineLearningFunctions)
-	virtual void SendStringInputGraphCallback(const FString& InputData, FString& ResultData, struct FLatentActionInfo LatentInfo, const FString& FunctionName = TEXT("onJsonInput"));
+		virtual void SendStringInputGraphCallback(const FString& InputData, FString& ResultData, struct FLatentActionInfo LatentInfo, const FString& FunctionName = TEXT("onJsonInput"));
 
 	/** BP Only. Send float array input, bypasses encoding. Useful for large data/native inference, may not work in remote context. Result will come back as a latent action in the graph.*/
 	UFUNCTION(BlueprintCallable, meta = (Latent, LatentInfo = "LatentInfo"), Category = MachineLearningFunctions)
-	virtual void SendRawInputGraphCallback(const TArray<float>& InputData, TArray<float>& ResultData, struct FLatentActionInfo LatentInfo, const FString& FunctionName = TEXT("onFloatArrayInput"));
+		virtual void SendRawInputGraphCallback(const TArray<float>& InputData, TArray<float>& ResultData, struct FLatentActionInfo LatentInfo, const FString& FunctionName = TEXT("onFloatArrayInput"));
 
 	//C++ Only. Native lambda callback variant, lambda must be specified to differentiate it from blueprint variant
 	virtual void SendStringInput(const FString& InputData, TFunction<void(const FString& ResultData)> ResultCallback, const FString& FunctionName = TEXT("onJsonInput"));
