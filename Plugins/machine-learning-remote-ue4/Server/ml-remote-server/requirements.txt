@@ -1,3 +1,4 @@
+python-engineio==3.12.1
 python-socketio==4.3.1
 aiohttp==3.6.1
 termcolor==1.1
