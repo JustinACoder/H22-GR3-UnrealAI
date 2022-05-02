@@ -1,3 +1,6 @@
 python-socketio==4.3.1
 aiohttp==3.6.1
-tensorflow==1.15.0
+termcolor==1.1
+numpy==1.21
+tensorflow==2.8
+matplotlib==3.5.1
