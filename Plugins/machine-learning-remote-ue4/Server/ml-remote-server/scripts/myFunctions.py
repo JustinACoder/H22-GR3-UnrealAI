@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import unreal_engine as ue
 
 
-def auto_crop_image_nolabel(image):
+def auto_crop_image_nolabel(image, offsetpercent=0.065, resizemethod='bilinear'):
     """
     This function remove crop the image in a way that (1) the image is square, (2) the
     image is centered and (3) the letter takes all the space.
@@ -58,7 +58,7 @@ def auto_crop_image_nolabel(image):
     biggest_side = tf.math.maximum(right_border - left_border, bottom_border - top_border)
 
     # crop the image with the middle as (middle_x, middle_y)
-    offset_percent = 0.065  # additional percentage of the biggest side
+    offset_percent = offsetpercent  # additional percentage of the biggest side
     offset = int(tf.math.round(float(biggest_side) * offset_percent))
     top_border = tf.math.maximum(tf.math.add((middle_y - biggest_side // 2), -offset), 0)
     bottom_border = tf.math.minimum(tf.math.add((middle_y + biggest_side // 2), offset), image.shape[0])
@@ -69,7 +69,7 @@ def auto_crop_image_nolabel(image):
     image = image[top_border:bottom_border, left_border:right_border, :]
 
     # resize the image
-    image = tf.image.resize(image, (28, 28), antialias=True)
+    image = tf.image.resize(image, (28, 28), method=resizemethod, antialias=True)
 
     # return as tensorflow tensor
     return image

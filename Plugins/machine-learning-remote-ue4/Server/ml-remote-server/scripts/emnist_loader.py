@@ -24,15 +24,12 @@ class EmnistLoad(MLPluginAPI):
         np_pixels = np_pixels.numpy().reshape((-1, 28, 28, 1))
 
         # embedd the input image pixels as 'x'
-        output = self.model.predict(np_pixels)
+        output = self.model(np_pixels, training=False).numpy()
 
         # set the prediction result in our json
-        letter_prediction = chr(np.argmax(output) + 64)
-        ue.log('Letter prediction: ' + letter_prediction)
-        json_output = {'inputData': output.flatten().tolist()}
-        return json_output
+        return {'inputData': output.flatten().tolist()}
 
-    # expected api: no params forwarded for training? TBC
+    # this is gonna get called when the client connects (the game starts)
     def on_begin_training(self):
         model_path = 'emnist_model'
         self.model = tf.keras.models.load_model(model_path)
