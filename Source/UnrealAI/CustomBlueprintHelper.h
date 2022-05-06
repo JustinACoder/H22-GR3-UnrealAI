@@ -13,8 +13,10 @@ UCLASS()
 class UNREALAI_API UCustomBlueprintHelper : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
-		UFUNCTION(BlueprintCallable)
+		UFUNCTION(BlueprintCallable, Category = "Helper")
 		static FString asciiToString(int asciiValue);
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "Helper")
 		static FString getQuickDrawLabel(int maxIndex, float maxProbability, float minThresholdProbability);
+	UFUNCTION(BlueprintCallable, Category = "Helper")
+		static TArray<float> vector2DArrayToFloatArray(TArray<FVector2D> vector2Darray);
 };

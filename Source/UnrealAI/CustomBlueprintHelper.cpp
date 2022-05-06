@@ -20,3 +20,14 @@ FString UCustomBlueprintHelper::getQuickDrawLabel(const int maxIndex, float maxP
 	// we got a match!
 	return labels[maxIndex];
 }
+
+TArray<float> UCustomBlueprintHelper::vector2DArrayToFloatArray(TArray<FVector2D> vector2Darray)
+{
+	TArray<float> floatArray;
+	for (int32 i = 0; i < vector2Darray.Num(); i++)
+	{
+		floatArray.Add(vector2Darray[i].X);
+		floatArray.Add(vector2Darray[i].Y);
+	}
+	return floatArray;
+}

@@ -14,20 +14,20 @@ class EmnistLoad(MLPluginAPI):
 
     # expected api: storedModel and session, json inputs
     def on_json_input(self, json_data):
-        # expect an image struct in json format
-        ue.log('image len: ' + str(len(json_data)))
+        mf.createImageFromInput(json_data)
+        return {'inputData':[0]}
 
-        np_pixels = np.array(json_data)
-        img_size = int(math.sqrt(np_pixels.shape[0]))
-        np_pixels = np_pixels.reshape((img_size, img_size, 1))
-        np_pixels = mf.auto_crop_image_nolabel(np_pixels)
-        np_pixels = np_pixels.numpy().reshape((-1, 28, 28, 1))
-
-        # embedd the input image pixels as 'x'
-        output = self.model(np_pixels, training=False).numpy()
-
-        # set the prediction result in our json
-        return {'inputData': output.flatten().tolist()}
+        # np_pixels = np.array(json_data)
+        # img_size = int(math.sqrt(np_pixels.shape[0]))
+        # np_pixels = np_pixels.reshape((img_size, img_size, 1))
+        # np_pixels = mf.auto_crop_image_nolabel(np_pixels)
+        # np_pixels = np_pixels.numpy().reshape((-1, 28, 28, 1))
+        #
+        # # embedd the input image pixels as 'x'
+        # output = self.model(np_pixels, training=False).numpy()
+        #
+        # # set the prediction result in our json
+        # return {'inputData': output.flatten().tolist()}
 
     # this is gonna get called when the client connects (the game starts)
     def on_begin_training(self):
