@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include <string>
 #include "CustomBlueprintHelper.h"
+#include <string>
+
 
 FString UCustomBlueprintHelper::asciiToString(int asciiValue)
 {
@@ -16,7 +17,7 @@ FString UCustomBlueprintHelper::getQuickDrawLabel(const int maxIndex, float maxP
 	if (maxProbability < minThresholdProbability || maxIndex < 0 || maxIndex >= 345) {
 		return FString(TEXT("?")); // not clear enough
 	}
-	
+
 	// we got a match!
 	return labels[maxIndex];
 }
