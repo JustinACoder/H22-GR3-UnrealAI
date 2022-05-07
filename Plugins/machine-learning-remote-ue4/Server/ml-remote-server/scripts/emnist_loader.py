@@ -8,6 +8,7 @@ import tensorflow as tf
 import unreal_engine as ue
 from mlpluginapi import MLPluginAPI
 import math
+import pathlib
 
 
 class EmnistLoad(MLPluginAPI):
@@ -31,7 +32,7 @@ class EmnistLoad(MLPluginAPI):
 
     # this is gonna get called when the client connects (the game starts)
     def on_begin_training(self):
-        model_path = 'emnist_model'
+        model_path = str(pathlib.Path(__file__).parent.resolve()) + '\..\emnist_model'
         self.model = tf.keras.models.load_model(model_path)
         ue.log("Loaded model from location " + model_path)
 

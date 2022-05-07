@@ -8,6 +8,7 @@ import tensorflow as tf
 import unreal_engine as ue
 from mlpluginapi import MLPluginAPI
 import math
+import pathlib
 
 
 class QuickdrawLoad(MLPluginAPI):
@@ -37,7 +38,7 @@ class QuickdrawLoad(MLPluginAPI):
 
     # expected api: no params forwarded for training? TBC
     def on_begin_training(self):
-        model_path = 'quickdraw_model'
+        model_path = str(pathlib.Path(__file__).parent.resolve()) + '\..\quickdraw_model'
         self.model = tf.keras.models.load_model(model_path)
         ue.log("Loaded model from location " + model_path)
 
