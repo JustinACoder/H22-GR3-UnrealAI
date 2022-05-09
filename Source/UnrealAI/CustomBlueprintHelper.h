@@ -13,8 +13,19 @@ UCLASS()
 class UNREALAI_API UCustomBlueprintHelper : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
+		
 		UFUNCTION(BlueprintCallable)
 		static FString asciiToString(int asciiValue);
-	UFUNCTION(BlueprintCallable)
+		
+		UFUNCTION(BlueprintCallable)
 		static FString getQuickDrawLabel(int maxIndex, float maxProbability, float minThresholdProbability);
+		
+		//Lecture du Fichier
+		UFUNCTION(BlueprintCallable, Category = "File I/O")
+		static FString LoadFileToString(FString Filename);
+
+
+		//Ecrire sur un fichier
+		UFUNCTION(BlueprintCallable, Category = "File I/O")
+		static FString SaveStringToFile(FString Filename, FString Data);
 };

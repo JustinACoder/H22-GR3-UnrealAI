@@ -2,6 +2,7 @@
 
 #include "CustomBlueprintHelper.h"
 #include <string>
+#include <Runtime\Core\Public\Misc\FileHelper.h>
 
 
 FString UCustomBlueprintHelper::asciiToString(int asciiValue)
@@ -20,4 +21,33 @@ FString UCustomBlueprintHelper::getQuickDrawLabel(const int maxIndex, float maxP
 
 	// we got a match!
 	return labels[maxIndex];
+}
+
+FString UCustomBlueprintHelper::LoadFileToString(FString Filename)
+{
+	FString directory = FPaths::GameSourceDir();
+	FString result;
+	IPlatformFile& file = FPlatformFileManager::Get().GetPlatformFile();
+
+	if (file.CreateDirectory(*directory))
+	{
+		FString myFile = directory + "/" + Filename;
+		FFileHelper::LoadFileToString(result, *myFile);
+	}
+	return result;
+}
+
+FString UCustomBlueprintHelper::SaveStringToFile(FString Filename, FString Data)
+{
+	FString directory = FPaths::GameSourceDir();
+	FString result;
+
+	IPlatformFile& file = FPlatformFileManager::Get().GetPlatformFile();
+
+	if (file.CreateDirectory(*directory))
+	{
+		FString myFile = directory + "/" + Filename;
+		FFileHelper::SaveStringToFile(Data, *myFile);
+	}
+	return Filename;
 }
