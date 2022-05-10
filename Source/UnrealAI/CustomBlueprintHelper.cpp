@@ -23,6 +23,23 @@ FString UCustomBlueprintHelper::getQuickDrawLabel(const int maxIndex, float maxP
 	return labels[maxIndex];
 }
 
+FString UCustomBlueprintHelper::getHangManWord(int index)
+{
+	const FString words[100] = { "legs", "body", "glass", "motion", "notebook", "pail", "harbor", "sock", "distance", "cork",
+		"winter", "pollution", "hand", "religion", "head", "agreement", "wing", "sign", "tongue", "stream",
+		"shirt", "curve", "giants", "mitten", "riddle", "moon", "bun", "basketball", "connection", "screw",
+	"quicksand", "plot", "way", "mouth", "carriage", "hand", "title", "trousers", "tent", "position",
+	"boundary", "laugh", "ladybug", "swim", "stage", "kittens", "clocks", "bikes", "tiger", "border",
+	"slave", "protest", "expert", "passenger", "end", "lake", "power", "heart", "arm", "arch", "group",
+	"comb", "copper", "pocket", "tiger", "example", "silver", "leaf", "print", "help", "bee", "sink",
+	"agreement", "beam", "receipt", "trail", "knee", "eyes", "mitten", "smoke", "limit", "trick", "waves",
+	"reading", "notebook", "laborer", "industry", "suit", "balloon", "children", "engine", "kiss", "string",
+	"field", "plot", "arm", "ant", "discovery" };
+
+	if (index > 100 || index < 0) return "?";
+	else return words[index];
+}
+
 FString UCustomBlueprintHelper::LoadFileToString(FString Filename)
 {
 	FString directory = FPaths::GameSourceDir();
