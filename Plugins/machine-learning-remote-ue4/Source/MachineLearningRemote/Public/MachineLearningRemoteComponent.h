@@ -31,56 +31,56 @@ public:
 	~UMachineLearningRemoteComponent();
 
 	UPROPERTY(BlueprintAssignable, Category = MachineLearningEvents)
-	FMLScriptSignature OnScriptStarted;
+		FMLScriptSignature OnScriptStarted;
 
 	/** remote server and address, default localhost:3000 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = MLRemoteProperties)
-	FString ServerAddressAndPort;
+		FString ServerAddressAndPort;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = MLRemoteProperties)
-	FString SendInputEventName;
+		FString SendInputEventName;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = MLRemoteProperties)
-	FString StartScriptEventName;
+		FString StartScriptEventName;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = MLRemoteProperties)
-	FString ScriptStartedEventName;
+		FString ScriptStartedEventName;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = MLRemoteProperties)
-	FString LogEventName;
+		FString LogEventName;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = MLRemoteProperties)
-	bool bConnectOnBeginPlay;
+		bool bConnectOnBeginPlay;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = MLRemoteProperties)
-	bool bStartScriptOnConnection;
+		bool bStartScriptOnConnection;
 
 	UPROPERTY(BlueprintReadOnly, Category = MLRemoteProperties)
-	bool bScriptRunning;
+		bool bScriptRunning;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = MLRemoteProperties)
-	FString DefaultScript;
+		FString DefaultScript;
 
 	/** Support both python and nodejs servers */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = MLRemoteProperties)
-	ETFServerType ServerType;
+		ETFServerType ServerType;
 
 	/** If true it will bootup a server on beginplay. Requires python to be installed. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = MLEmbeddedProperties)
-	bool bAutoStartServer;
+		bool bAutoStartServer;
 
 	static bool bServerIsRunning;
 
 	/** EXPERIMENTAL: If true, will launch an embedded server. Requires the embedded server type exists in third party. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = MLEmbeddedProperties)
-	bool bUseEmbeddedServer;
+		bool bUseEmbeddedServer;
 
 	/** EXPERIMENTAL: Relative to plugin root */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = MLEmbeddedProperties)
-	FString EmbeddedServerRelativePath;
+		FString EmbeddedServerRelativePath;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = MLEmbeddedProperties)
-	bool bPrintServerLog;
+		bool bPrintServerLog;
 
 
 	virtual void BeginPlay() override;
@@ -89,11 +89,11 @@ public:
 
 	/** For remote ML components we can use socket.io protocol to communicate objects directly. Return result in graph context. */
 	UFUNCTION(BlueprintCallable, meta = (Latent, LatentInfo = "LatentInfo"), Category = MLFunctions)
-	virtual void SendSIOJsonInput(USIOJsonValue* InputData, USIOJsonValue*& ResultData, struct FLatentActionInfo LatentInfo, const FString& FunctionName = TEXT("on_json_input"));
+		virtual void SendSIOJsonInput(USIOJsonValue* InputData, USIOJsonValue*& ResultData, struct FLatentActionInfo LatentInfo, const FString& FunctionName = TEXT("on_json_input"));
 
 	/** Start designated script. Get's called on beginplay by default*/
 	UFUNCTION(BlueprintCallable, Category = MLFunctions)
-	virtual void StartScript(const FString& ScriptName);
+		virtual void StartScript(const FString& ScriptName);
 
 	//NB by default python pep expects lowercase_lowercase function names. This is different from BaseComponent defaults, which uses camelCase
 	virtual void SendStringInput(const FString& InputData, const FString& FunctionName = TEXT("on_json_input")) override;
