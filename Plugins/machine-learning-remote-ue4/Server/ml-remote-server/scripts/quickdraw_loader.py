@@ -31,7 +31,7 @@ class QuickdrawLoad(MLPluginAPI):
         # embedd the input image pixels as 'x'
         output = self.model(np_pixels, training=False).numpy()
 
-        mf.showImage(np_pixels)
+        # mf.showImage(np_pixels)
 
         # set the prediction result in our json
         return {'inputData':output.flatten().tolist()}
