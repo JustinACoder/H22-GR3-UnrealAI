@@ -26,13 +26,7 @@ public class MachineLearningRemote : ModuleRules
             new string[]
             {
                 "Core",
-                "MachineLearningBase",
-                "SocketIOClient",
-                "SocketIOLib",
-                "Json",
-                "SIOJson",
-                "CoreUtility",
-                "MLProcess"
+                
 				// ... add other public dependencies that you statically link with here ...
 			}
             );
@@ -44,8 +38,15 @@ public class MachineLearningRemote : ModuleRules
                 "CoreUObject",
                 "Engine",
                 "Slate",
-                "SlateCore"
-                
+                "SlateCore",
+                "SocketIOClient",
+                "SocketIOLib",
+                "Json",
+                "SIOJson",
+                "CoreUtility",
+                "MLProcess",
+                "MachineLearningBase"
+                //"MLProcess"
 				// ... add private dependencies that you statically link with here ...	
 			}
             );

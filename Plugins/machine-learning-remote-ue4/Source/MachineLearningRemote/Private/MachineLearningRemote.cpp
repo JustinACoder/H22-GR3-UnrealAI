@@ -3,7 +3,7 @@
 #include "MachineLearningRemote.h"
 #include "MachineLearningBase.h"
 
-DEFINE_LOG_CATEGORY(MLBaseLog);
+//DEFINE_LOG_CATEGORY(MLBaseLog);
 
 #define LOCTEXT_NAMESPACE "FMachineLearningRemoteModule"
 
@@ -19,5 +19,5 @@ void FMachineLearningRemoteModule::ShutdownModule()
 }
 
 #undef LOCTEXT_NAMESPACE
-	
+
 IMPLEMENT_MODULE(FMachineLearningRemoteModule, MachineLearningRemote)

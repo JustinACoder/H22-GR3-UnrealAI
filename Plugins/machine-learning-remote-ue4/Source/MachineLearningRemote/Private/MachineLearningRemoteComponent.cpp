@@ -47,7 +47,7 @@ void UMachineLearningRemoteComponent::BeginPlay()
 		bServerIsRunning = true;
 		FString PluginServerFolderPath = FPaths::Combine(FPaths::ProjectPluginsDir(), TEXT("machine-learning-remote-ue4/Server"));
 		FString ServerScriptPath = FPaths::Combine(PluginServerFolderPath, TEXT("ml-remote-server"));
-		
+
 		//UE_LOG(LogTemp, Log, TEXT("%s"), *ServerPath);
 		if (bUseEmbeddedServer)
 		{
@@ -59,9 +59,9 @@ void UMachineLearningRemoteComponent::BeginPlay()
 		{
 			Process = FMLProcess::Create(TEXT("python"), ServerScriptPath + TEXT("/server.py"), true, false, false, 0, TEXT(""), true);
 		}
-		
+
 	}
-	
+
 	//Setup callbacks
 	Socket->OnConnectedCallback = [this](const FString& InSessionId)
 	{
@@ -111,19 +111,19 @@ void UMachineLearningRemoteComponent::BeginPlay()
 	{
 		if (Socket.IsValid())
 		{
-			
+
 		};
 	};
 	Socket->OnEvent(ScriptStartedEventName, [this](const FString& EventName, const TSharedPtr<FJsonValue>& Params)
-	{
-		bScriptRunning = true;
-		OnScriptStarted.Broadcast(Params->AsString());
-	});
+		{
+			bScriptRunning = true;
+			OnScriptStarted.Broadcast(Params->AsString());
+		});
 
 	Socket->OnEvent(LogEventName, [this](const FString& EventName, const TSharedPtr<FJsonValue>& Params)
-	{
-		OnLog.Broadcast(Params->AsString());
-	});
+		{
+			OnLog.Broadcast(Params->AsString());
+		});
 
 	if (bConnectOnBeginPlay)
 	{
@@ -181,22 +181,22 @@ void UMachineLearningRemoteComponent::SendSIOJsonInput(USIOJsonValue* InputData,
 	FCULatentAction* LatentAction = FCULatentAction::CreateLatentAction(LatentInfo, this);
 
 	Socket->Emit(SendInputEventName, SendObject, [this, FunctionName, LatentAction, &ResultData](auto ResponseArray)
-	{
-		//UE_LOG(MLBaseLog, Log, TEXT("Got callback response: %s"), *USIOJConvert::ToJsonString(ResponseArray));
-		if (ResponseArray.Num() == 0)
 		{
-			return;
-		}
+			//UE_LOG(MLBaseLog, Log, TEXT("Got callback response: %s"), *USIOJConvert::ToJsonString(ResponseArray));
+			if (ResponseArray.Num() == 0)
+			{
+				return;
+			}
 
-		//We only handle the one response for now
-		TSharedPtr<FJsonValue> Response = ResponseArray[0];
+			//We only handle the one response for now
+			TSharedPtr<FJsonValue> Response = ResponseArray[0];
 
-		ResultData = NewObject<USIOJsonValue>();
+			ResultData = NewObject<USIOJsonValue>();
 
-		ResultData->SetRootValue(Response);
+			ResultData->SetRootValue(Response);
 
-		LatentAction->Call();	//resume the latent action
-	});
+			LatentAction->Call();	//resume the latent action
+		});
 }
 
 void UMachineLearningRemoteComponent::StartScript(const FString& ScriptName)
@@ -209,9 +209,9 @@ void UMachineLearningRemoteComponent::SendStringInput(const FString& InputData, 
 {
 	const FString SafeFunctionName = FunctionName;
 	SendStringInput(InputData, [this, SafeFunctionName](const FString& ResultData)
-	{
-		OnInputResult.Broadcast(ResultData, SafeFunctionName);
-	}, FunctionName);
+		{
+			OnInputResult.Broadcast(ResultData, SafeFunctionName);
+		}, FunctionName);
 }
 
 void UMachineLearningRemoteComponent::SendStringInput(const FString& InputData, TFunction<void(const FString& ResultData)> ResultCallback, const FString& FunctionName /*= TEXT("onJsonInput")*/)
@@ -258,9 +258,9 @@ void UMachineLearningRemoteComponent::SendRawInput(const TArray<float>& InputDat
 {
 	const FString SafeFunctionName = FunctionName;
 	SendRawInput(InputData, [this, SafeFunctionName](TArray<float>& ResultData)
-	{
-		OnRawInputResult.Broadcast(ResultData, SafeFunctionName);
-	}, FunctionName);
+		{
+			OnRawInputResult.Broadcast(ResultData, SafeFunctionName);
+		}, FunctionName);
 }
 
 void UMachineLearningRemoteComponent::SendRawInput(const TArray<float>& InputData, TFunction<void(TArray<float>& ResultData)> ResultCallback, const FString& FunctionName /*= TEXT("onFloatArrayInput")*/)
@@ -309,29 +309,29 @@ void UMachineLearningRemoteComponent::SendStringInputGraphCallback(const FString
 	SendObject.TargetFunction = FunctionName;
 
 	Socket->Emit(SendInputEventName, FMLSendStringObject::StaticStruct(), &SendObject, [this, FunctionName, LatentAction, &ResultData](auto ResponseArray)
-	{
-		//UE_LOG(MLBaseLog, Log, TEXT("Got callback response: %s"), *USIOJConvert::ToJsonString(ResponseArray));
-		if (ResponseArray.Num() == 0)
 		{
-			return;
-		}
+			//UE_LOG(MLBaseLog, Log, TEXT("Got callback response: %s"), *USIOJConvert::ToJsonString(ResponseArray));
+			if (ResponseArray.Num() == 0)
+			{
+				return;
+			}
 
-		//We only handle the one response for now
-		TSharedPtr<FJsonValue> Response = ResponseArray[0];
+			//We only handle the one response for now
+			TSharedPtr<FJsonValue> Response = ResponseArray[0];
 
-		//Grab the value as a string
-		//Todo: support non-string encoding?
-		if (Response->Type == EJson::String)
-		{
-			ResultData = Response->AsString();
-		}
-		else
-		{
-			ResultData = USIOJConvert::ToJsonString(Response);
-		}
+			//Grab the value as a string
+			//Todo: support non-string encoding?
+			if (Response->Type == EJson::String)
+			{
+				ResultData = Response->AsString();
+			}
+			else
+			{
+				ResultData = USIOJConvert::ToJsonString(Response);
+			}
 
-		LatentAction->Call();	//resume the latent action
-	});
+			LatentAction->Call();	//resume the latent action
+		});
 }
 
 void UMachineLearningRemoteComponent::SendRawInputGraphCallback(const TArray<float>& InputData, TArray<float>& ResultData, struct FLatentActionInfo LatentInfo, const FString& FunctionName /*= TEXT("onJsonInput")*/)
@@ -344,27 +344,27 @@ void UMachineLearningRemoteComponent::SendRawInputGraphCallback(const TArray<flo
 	SendObject.TargetFunction = FunctionName;
 
 	Socket->Emit(SendInputEventName, FMLSendRawObject::StaticStruct(), &SendObject, [this, FunctionName, LatentAction, &ResultData](auto ResponseArray)
-	{
-		//UE_LOG(MLBaseLog, Log, TEXT("Got callback response: %s"), *USIOJConvert::ToJsonString(ResponseArray));
-		if (ResponseArray.Num() == 0)
 		{
-			return;
-		}
+			//UE_LOG(MLBaseLog, Log, TEXT("Got callback response: %s"), *USIOJConvert::ToJsonString(ResponseArray));
+			if (ResponseArray.Num() == 0)
+			{
+				return;
+			}
 
-		//We only handle the one response for now
-		TSharedPtr<FJsonValue> Response = ResponseArray[0];
+			//We only handle the one response for now
+			TSharedPtr<FJsonValue> Response = ResponseArray[0];
 
-		if (Response->Type != EJson::Object)
-		{
-			UE_LOG(MLBaseLog, Warning, TEXT("SendRawInputGraphCallback: Expected float array wrapped object, got %s"), *USIOJConvert::ToJsonString(ResponseArray));
-			return;
-		}
+			if (Response->Type != EJson::Object)
+			{
+				UE_LOG(MLBaseLog, Warning, TEXT("SendRawInputGraphCallback: Expected float array wrapped object, got %s"), *USIOJConvert::ToJsonString(ResponseArray));
+				return;
+			}
 
-		FMLSendRawObject ReceiveObject;
-		USIOJConvert::JsonObjectToUStruct(Response->AsObject(), FMLSendRawObject::StaticStruct(), &ReceiveObject);
+			FMLSendRawObject ReceiveObject;
+			USIOJConvert::JsonObjectToUStruct(Response->AsObject(), FMLSendRawObject::StaticStruct(), &ReceiveObject);
 
-		ResultData = ReceiveObject.InputData;
+			ResultData = ReceiveObject.InputData;
 
-		LatentAction->Call();	//resume the latent action
-	});
+			LatentAction->Call();	//resume the latent action
+		});
 }

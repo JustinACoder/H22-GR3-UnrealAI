@@ -70,7 +70,7 @@ void UMachineLearningBaseComponent::ImmediateLatentResponse(struct FLatentAction
 	}
 
 	FLatentActionManager& LatentActionManager = World->GetLatentActionManager();
-	FPendingLatentAction *LatentAction = LatentActionManager.FindExistingAction<FPendingLatentAction>(LatentInfo.CallbackTarget, LatentInfo.UUID);
+	FPendingLatentAction* LatentAction = LatentActionManager.FindExistingAction<FPendingLatentAction>(LatentInfo.CallbackTarget, LatentInfo.UUID);
 	LatentAction = new FPendingLatentAction();	//safe to use new since latentactionmanager will delete it
 	int32 UUID = LatentInfo.UUID;
 	LatentActionManager.AddNewAction(LatentInfo.CallbackTarget, LatentInfo.UUID, LatentAction);
