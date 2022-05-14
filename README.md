@@ -9,15 +9,23 @@ Application créée avec Unreal Engine dans le but d'expérimenter avec des AIs.
 
 # Comment installer le projet
 
-En terme de version et d'OS, uniquement Windows est supporté et Unreal Engine 4.23 ainsi que Python 3.6 sont nécessaire.
-Bien faire attention que les variables d'environnement contiennent le path vers Python 3.6. 
-Afin de généré les Binaries et pouvoir jouer au jeux:
-- Avoir installé Visual Studio (pas Visual Studio Code)
-- Ouvrir le projet dans Unreal Engine 4.23 et launch le projet dans le menu tout à droite.
-- Encore dans Unreal Engine, Edit > Cook content for Windows.
+## Versions
+Ce projet nécéssite l'OS Windows ainsi que l'installation de Unreal Engine 4.25 et d'une version de Python 3.7+. 
+Il est à noter que des packages avec des versions spécifiques seront installés sur la version de Python et donc une nouvelle version est recommandée.
 
-Maintenant un dossier Binaries est apparu dans le projet avec à l'intérieur le jeu
-dans le fichier UnrealAI.exe.
+## Installation
+1. Cloner le projet via ce repo.
+2. Compiler le projet est l'ouvrant avec Unreal Engine 4.25. Cette étape peut prendre un certain temps.
+3. Installer les packages python en exécutant le fichier bat [InstallRequirements.bat](Plugins\machine-learning-remote-ue4\Server\ml-remote-server) dans le dossier du serveur. Cette étape peut notamment modifier les versions de tensorflow, de numpy et de bien d'autres packages dans la version de Python s'ils sont installés.
+4. Dans Unreal Engine, *Launch* le projet, ce qui peut prendre quelques minutes, et *Cook Content for Windows* dans *File* en haut à gauche.
+
+Le jeu est maintenant près à être joué.
+
+# Jouer au jeux
+
+Il existe deux manières de jouer: dans l'éditeur et avec le exe. 
+Pour jouer dans l'éditeur, simplement appuyer sur le bouton *Play*.
+Afin de jouer sur le exe, il faut tout d'abord activer le serveur avec le fichier [StartupServer.bat](Plugins\machine-learning-remote-ue4\Server\ml-remote-server) et ensuite le fichier exe située dans *Binairies/Win64/UnrealAI.exe* peut être exécuté. 
 
 # Fonctionalités
 
