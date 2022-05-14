@@ -27,9 +27,16 @@ Il existe deux manières de jouer: dans l'éditeur et avec le exe.
 Pour jouer dans l'éditeur, simplement appuyer sur le bouton *Play*.
 Afin de jouer sur le exe, il faut tout d'abord activer le serveur avec le fichier [StartupServer.bat](https://github.com/JustinACoder/H22-GR3-UnrealAI/tree/4.25/Plugins/machine-learning-remote-ue4/Server/ml-remote-server) et ensuite le fichier exe située dans *Binairies/Win64/UnrealAI.exe* peut être exécuté. 
 
+# Structure du projet
+
+Le projet est composé de trois parties distinctes avec du code.
+1. Le *CustomBlueprintHelper* situé dans le dossier *Source/UnrealAI* qui définit quelques fonctions utilisées dans les Blueprints.
+2. Nos Blueprints situés dans le dossier *Content/UnrealAI_BP*. Il y a des *StaticMesh* pour le tableau dans les assets SM, des *LevelSequence* dans les assets LS, des matériaux dans les assets M, un *RenderTarget* avec le préfixe RT, des *Widgets* dans les assets WBP, des *Enums* dans les assets E et finalement les scripts Blueprint dans les assets BP.
+3. Le serveur ainsi que ses scripts se trouve dans le dossier *Plugins\machine-learning-remote-ue4\Server\ml-remote-server*. Il y a des fichiers .bat qui permettent de partir le serveur, installer les requirements python, etc. Les modèles y sont aussi dans leur dossier respectif *nom_model*. Les scripts python utilisés pour créer ces IA sont dans le dossier *scripts/creating_models_scripts* et les scripts utilisés lors du jeu pour loader les différents modèles sur le serveur sont dans *scripts*
+
 # Fonctionalités
 
-Le projet est basé sur le plugin <a href="https://github.com/getnamo/tensorflow-ue4">tensorflow-ue4</a>
+Le projet est basé sur le plugin <a href="https://github.com/getnamo/TensorFlow-Unreal">TensorFlow-Unreal version 1.0.0 alpha2</a>.
 
 <h3>Datasets utilisés</h3>
 <a href="https://github.com/googlecreativelab/quickdraw-dataset">Quick draw dataset</a><br>
