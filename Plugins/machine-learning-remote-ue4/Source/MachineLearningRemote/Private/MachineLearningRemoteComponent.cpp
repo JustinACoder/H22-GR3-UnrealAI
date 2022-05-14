@@ -285,7 +285,7 @@ void UMachineLearningRemoteComponent::SendRawInput(const TArray<float>& InputDat
 
 			if (Response->Type != EJson::Object)
 			{
-				UE_LOG(MLBaseLog, Warning, TEXT("SendRawInput: Expected float array wrapped object, got %s"), *USIOJConvert::ToJsonString(ResponseArray));
+				UE_LOG(LogTemp, Warning, TEXT("SendRawInput: Expected float array wrapped object, got %s"), *USIOJConvert::ToJsonString(ResponseArray));
 				return;
 			}
 
@@ -356,7 +356,7 @@ void UMachineLearningRemoteComponent::SendRawInputGraphCallback(const TArray<flo
 
 			if (Response->Type != EJson::Object)
 			{
-				UE_LOG(MLBaseLog, Warning, TEXT("SendRawInputGraphCallback: Expected float array wrapped object, got %s"), *USIOJConvert::ToJsonString(ResponseArray));
+				UE_LOG(LogTemp, Warning, TEXT("SendRawInputGraphCallback: Expected float array wrapped object, got %s"), *USIOJConvert::ToJsonString(ResponseArray));
 				return;
 			}
 
